@@ -19,3 +19,16 @@ class VacancyAPI(ABC):
         """Абстрактный метод для форматирования данных из вакансий по общим ключам"""
         pass
 
+
+class FileSaver(ABC):
+   """Абстрактный класс для работы с файлами json"""
+
+   @abstractmethod
+   def add_vacancies(self, vacancies_list):
+       """Абстрактный метод для добавления вакансий в файл"""
+       pass
+
+   @abstractmethod
+   def get_vacancies(self):
+       """Абстрактный метод для получения вакансий из файла"""
+       pass
