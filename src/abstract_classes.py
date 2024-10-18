@@ -8,3 +8,8 @@ class VacancyAPI(ABC):
     def get_vacancies(self, keyword):
         """Абстрактный метод для получения вакансий"""
         pass
+
+    @abstractmethod
+    def validations_vacancies(self, vacancies_list):
+        """Абстрактный метод для валидации данных из списка вакансий"""
+        pass
