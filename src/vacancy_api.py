@@ -24,7 +24,7 @@ class HeadHunterAPI(VacancyAPI):
         else:
             print(f'Ошибка при выполнении запроса: {response.status_code}')
 
-    def hh_validations_vacancies(self, hh_vacancies_list):
+    def validations_vacancies(self, hh_vacancies_list):
         """Валидация данных из списка вакансий HeadHunter"""
 
         filter_vac_list = []
@@ -51,7 +51,7 @@ class HeadHunterAPI(VacancyAPI):
                 filter_vac_list.append(vacancy)
         return filter_vac_list
 
-    def hh_data_formatting(self, hh_val_vacancies):
+    def data_formatting(self, hh_val_vacancies):
         """Форматирование вакансий HeadHunter по общим ключам"""
 
         format_vac_list = []
@@ -63,7 +63,8 @@ class HeadHunterAPI(VacancyAPI):
                 "Зарплата до": data["salary"]["to"],
                 "Валюта": data["salary"]["currency"],
                 "Название компании": data["employer"]["name"],
-                "Требования и обязанности": data["snippet"]["requirement"]
+                "Требования и обязанности": data["snippet"]["requirement"],
+                "Регион": data["area"]["name"]
             }
             format_vac_list.append(format_data)
         return format_vac_list
@@ -89,11 +90,11 @@ class SuperJobAPI(VacancyAPI):
         else:
             print(f'Ошибка при выполнении запроса: {response.status_code}')
 
-    def sj_validations_vacancies(self, sj_vacancies):
+    def validations_vacancies(self, sj_vacancies_list):
         """Валидация данных из списка вакансий SuperJob"""
 
         filter_vac_list = []
-        for vacancy in sj_vacancies:
+        for vacancy in sj_vacancies_list:
             if vacancy["payment_from"] is not None:
                 if vacancy["payment_from"]:
                     payment_from = vacancy["payment_from"]
@@ -118,7 +119,7 @@ class SuperJobAPI(VacancyAPI):
 
         return filter_vac_list
 
-    def sj_data_formatting(self, sj_val_vacancies):
+    def data_formatting(self, sj_val_vacancies):
         """Форматирование вакансий SuperJob по общим ключам"""
 
         format_vac_list = []
@@ -130,7 +131,8 @@ class SuperJobAPI(VacancyAPI):
                 "Зарплата до": data["payment_to"],
                 "Валюта": data["currency"],
                 "Название компании": data["firm_name"],
-                "Требования и обязанности": data["candidat"]
+                "Требования и обязанности": data["candidat"],
+                "Регион": data["town"]["title"]
             }
             format_vac_list.append(format_data)
         return format_vac_list
